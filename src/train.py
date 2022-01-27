@@ -25,7 +25,7 @@ class Trainable(tune.Trainable):
 
         target_transform = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+            transforms.Normalize((0.5, 0.5, ), (0.5, 0.5, ))
         ])
 
         train_dataset = Places365(
@@ -38,7 +38,10 @@ class Trainable(tune.Trainable):
 
         self.fixed_gray_images, self.fixed_lab_images = next(iter(self.val_dataloader))
         self.fixed_gray_images = self.fixed_gray_images.to(self.device)
-        self.fixed_lab_images = self.fixed_lab_images.to(self.device)
+        self.fixed_lab_images = torch.cat([
+            self.fixed_gray_images,
+            self.fixed_lab_images.to(self.device)
+        ], dim=1)
 
         self.netG = Generator(**netGs[config['netG']]).to(self.device)
         self.netG.apply(weights_init)
@@ -105,7 +108,10 @@ class Trainable(tune.Trainable):
         self.netG.eval()
         self.netD.eval()
 
-        fake_images = lab_to_rgb(self.netG(self.fixed_gray_images), (-1., 1.))
+        fake_images = lab_to_rgb(torch.cat([
+            self.fixed_gray_images,
+            self.netG(self.fixed_gray_images)
+        ], dim=1), (-1., 1.))
         real_images = lab_to_rgb(self.fixed_lab_images, (-1., 1.))
 
         fake_image_grid = make_grid(fake_images, normalize=True, value_range=(-1, 1), nrow=5)
@@ -134,5 +140,5 @@ if __name__ == '__main__':
         stop={'training_iteration': 100},
         config=config,
         resources_per_trial={'gpu': 1, 'cpu': 1},
-        num_samples=3
+        num_samples=1
     )

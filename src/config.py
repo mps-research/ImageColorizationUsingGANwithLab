@@ -143,7 +143,7 @@ large_netG = {
         },
         {
             'in_channels': 128,
-            'out_channels': 3,
+            'out_channels': 2,
             'kernel_size': 3,
             'stride': 1,
             'padding': 1,
@@ -151,8 +151,8 @@ large_netG = {
             'activation_func': nn.ReLU()
         },
         {
-            'in_channels': 3,
-            'out_channels': 3,
+            'in_channels': 2,
+            'out_channels': 2,
             'kernel_size': 3,
             'stride': 1,
             'padding': 1,
@@ -166,7 +166,7 @@ large_netG = {
 large_netD = {
     'blocks': [
         {
-            'in_channels': 3,
+            'in_channels': 2,
             'out_channels': 64,
             'kernel_size': 4,
             'stride': 2,
@@ -260,6 +260,6 @@ config = {
     'lrG': tune.grid_search([2e-4]),
     'lrD': tune.grid_search([2e-4]),
     'p': tune.grid_search([0.7]),
-    'lambda': tune.grid_search([30, 100]),
+    'lambda': tune.grid_search([100]),
     'batch_size': 64,
 }

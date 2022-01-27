@@ -76,9 +76,10 @@ class Places365(Dataset):
         rgb_image = cv2.cvtColor(cv2.imread(str(self._image_paths[idx])), cv2.COLOR_BGR2RGB)
         lab_image = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2LAB)
         gray_image = lab_image[:, :, 0]
+        ab_image = lab_image[:, :, 1:]
 
         if self._transform:
             gray_image = self._transform(gray_image)
         if self._target_transform:
-            lab_image = self._target_transform(lab_image)
-        return gray_image, lab_image
+            ab_image = self._target_transform(ab_image)
+        return gray_image, ab_image
