@@ -8,8 +8,9 @@ Kamyar Nazeri, Eric Ng and Mehran Ebrahimi:
 Image Colorization with Generative Adversarial Networks.
 https://arxiv.org/pdf/1803.05400.pdf
 
+Richard Zhang, Phillip Isola and Alexei A. Efros: 
 Colorful Image Colorization.
-
+https://arxiv.org/pdf/1603.08511.pdf
 
 ## Related Websites
 
