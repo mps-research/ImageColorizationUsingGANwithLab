@@ -246,8 +246,8 @@ datasets = {
     'places365_20220124': {
         'src_dir': '/data/places365_standard',
         'dst_dir': '/data/places365_20220124',
-        'n_classes': 10,
-        'n_train_samples_per_class': 1000,
+        'n_classes': 3,
+        'n_train_samples_per_class': 3000,
         'n_val_samples_per_class': 10,
     }
 }
@@ -260,6 +260,6 @@ config = {
     'lrG': tune.grid_search([2e-4]),
     'lrD': tune.grid_search([2e-4]),
     'p': tune.grid_search([0.7]),
-    'lambda': tune.grid_search([100]),
-    'batch_size': 64,
+    'lambda': tune.grid_search([30, 100, 300]),
+    'batch_size': 32,
 }

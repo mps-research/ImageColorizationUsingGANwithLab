@@ -139,6 +139,6 @@ if __name__ == '__main__':
         Trainable,
         stop={'training_iteration': 100},
         config=config,
-        resources_per_trial={'gpu': 1, 'cpu': 1},
+        resources_per_trial={'gpu': 0.5, 'cpu': 1},
         num_samples=1
     )
